@@ -1,0 +1,131 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                   
+                    <div class="card-content table-responsive">
+                       <h4 class="title"> Data Nilai Ekstra Kurikuler <br>Tahun Ajaran <?php echo $kd_ta?></h4>
+                        <a href="<?php echo base_url('bk/finput_nilai_ekstra');?>" class="btn btn-sm btn-info">Input</a>
+                       <table class="table table-responsive table-striped table-bordered" id="tabel_program">
+                            <thead class="text-primary">
+                                <tr>
+                                <th width="4%">No</th>   
+                                <th width="20%">Ekstra Kurikuler</th>
+                                <th width="5%" rowspan="2">NIS</th>
+                                 <th width="15%">Nama Siswa / Kelas</th>
+                                
+                                 <th width="10%" >Nilai</th>
+                                 <th width="30%" >Deskripsi</th>
+                                 <th width="5%">Aksi</th>
+
+                                </tr>
+                                
+                            </thead>
+                            <tbody>
+                            <?php 
+                            $no=1;
+                            $tot0='0';
+                            $tot1='0';
+                            $tot2='0';
+                            $tot3='0';
+                            $tot4='0';
+                            
+                            foreach($list as $row)
+                            {
+                              if($row->angka=='0')
+                              {
+                                  $tot0=$tot0+1;
+                              }if($row->angka=='1')
+                              {
+                                  $tot1=$tot1+1;
+                              }if($row->angka=='2')
+                              {
+                                  $tot2=$tot2+1;
+                              }
+                              if($row->angka=='3')
+                              {
+                                $tot3=$tot3+1;
+                              }
+                              if($row->angka=='4')
+                              {
+                                  $tot4=$tot4+1;
+                              }
+                                      
+                                    
+                                ?>
+                                <tr>
+                                    <td align="center"><?php echo $no++?></td>
+                                     <td align="left"><?php echo $row->kd_ekstra?></td>
+                                    <td align="center"><?php echo $row->nis?></td>
+                                    <td><?php echo $row->nm_siswa.' / '.$row->kelas?></td>
+                                   
+                                   
+                                    <td align="center"><?php echo $row->nilai?></td>
+                                    <td align="left"><?php echo $row->deskripsi ?></td>
+                                    <td></td>
+                                   
+                                    </td>
+                                </tr>
+                                
+                            <?php
+                            
+
+                                }
+                            
+                            ?>
+                            </tbody>
+                        </table>
+					Jumlah Siswa Dengan Nilai: 1).Sangat Baik= <?php echo $tot4?> siswa/siswi, 2).Baik= <?php echo $tot3?> siswa/siswi, 3).Cukup= <?php echo $tot2?> siswa/siswi, 4).Kurang= <?php echo $tot1?> siswa/siswi.
+                    </div>
+                </div>
+            </div>
+            </div>
+			
+        </div>
+    </div>
+	            
+       
+   
+</body>
+<!--   Core JS Files   -->
+<script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/material.min.js" type="text/javascript"></script>
+<!--  Charts Plugin -->
+<script src="<?php echo base_url(); ?>assets/js/chartist.min.js"></script>
+<!--  Dynamic Elements plugin -->
+<script src="<?php echo base_url(); ?>assets/js/arrive.min.js"></script>
+<!--  PerfectScrollbar Library -->
+<script src="<?php echo base_url(); ?>assets/js/perfect-scrollbar.jquery.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="<?php echo base_url(); ?>assets/js/bootstrap-notify.js"></script>
+<script src="<?php echo base_url()?>assets/js/moment.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/gmap.js"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="<?php echo base_url(); ?>assets/js/material-dashboard.js?v=1.2.0"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="<?php echo base_url(); ?>assets/js/demo.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/ckeditor/ckeditor.js"></script>
+    <!-- panggil adapter jquery ckeditor -->
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/ckeditor/adapters/jquery.js"></script>
+	
+	<script type="text/javascript">
+    $(document).ready(function() {
+        var table = $('#tabel_program').DataTable( {
+            responsive: true
+        } );
+     
+        new $.fn.dataTable.FixedHeader( table );
+    });
+</script>
+
+
+</html>

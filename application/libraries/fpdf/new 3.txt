@@ -1,0 +1,147 @@
+$sql="SELECT `nilai`.`kd_jadwal`,`nilai`.`nilai_spritual`,`nilai`.`nilai_sosial`,`nilai`.`nilai_pengetahuan`,
+			  `nilai`.`desc_nilai_pengetahuan`,`nilai`.`nilai_keterampilan`,`nilai`.`desc_nilai_keterampilan`,`jadwal`.`kd_pelajaran`,
+			  `jadwal`.`id_guru`,`jadwal`.`kd_ta`,`pelajaran`.`nm_pelajaran`,`pelajaran`.`kategori`,`pelajaran`.`subkategori`,`nilai`.`nis`,kelompok
+				FROM `nilai` INNER JOIN `jadwal` ON `nilai`.`kd_jadwal` = `jadwal`.`kd_jadwal` INNER JOIN `pelajaran` ON `jadwal`.`kd_pelajaran` = `pelajaran`.`kd_pelajaran` WHERE `nilai`.`nis`='".$nis."'  and kd_ta='".$kd_ta."' and pelajaran.kelompok='B'";
+	 		$A=$this->db->query($sql)->result();
+       		$pdf->Cell(190, 6, 'Kelompok B (Umum)', 1, 0, 'L');
+       		$pdf->ln(6);
+       		$no=1;
+       		foreach ($A as $row) {
+       			if($row->nilai_pengetahuan>=90)
+        		{
+            		$predikat="A";
+            	}
+
+               $lenpelajaran=strlen($row->nm_pelajaran);
+                $lendesc=strlen($row->desc_nilai_pengetahuan);
+                $cellHeight=5;
+                if($lenpelajaran>$lendesc)
+                {
+                    $x=$row->nm_pelajaran;
+                    $cellWidth=80;
+                }else
+                {
+                    $cellWidth=75;
+                    $x=$row->desc_nilai_pengetahuan;
+                }
+                if($pdf->GetStringWidth($x) < $cellWidth){
+                    $line=1;
+                }else{
+                    $textLength=strlen($x);
+                    $errMargin=10;
+                    $startChar=0;
+                    $maxChar=0;
+                    $textArray=array(); 
+                    $tmpString='';
+                    while($startChar < $textLength)
+                    { 
+                    while( $pdf->GetStringWidth( $tmpString ) < ($cellWidth-$errMargin) && ($startChar+$maxChar) < $textLength) 
+                        {
+                            $maxChar++;
+                            $tmpString=substr($x,$startChar,$maxChar);
+                        }
+                        $startChar=$startChar+$maxChar;
+                        array_push($textArray,$tmpString);
+                        $maxChar=0;
+                        $tmpString='';
+                    }
+                    $line=count($textArray);
+                    }
+                    
+                    $pdf->Cell(10,($line* $cellHeight),$no++,1,0,'C'); //adapt height to number of lines
+                     $xPos=$pdf->GetX();
+                     $yPos=$pdf->GetY();
+                     if($line>1)
+                     {
+
+                     $pdf->MultiCell(80,($cellHeight),$row->nm_pelajaran,1);
+                     }
+                     else
+                     {
+                        $pdf->MultiCell(80,($line*$cellHeight),$row->nm_pelajaran,1);
+                     }
+                     $pdf->SetXY($xPos + $cellWidth , $yPos);
+                    $pdf->Cell(10,($line * $cellHeight),  $row->nilai_pengetahuan, 1, 0, 'C');
+                    $pdf->Cell(15,($line * $cellHeight), $predikat, 1, 0, 'C');
+                    if($line>1)
+                     {
+
+                     $pdf->MultiCell(75,($cellHeight),$row->desc_nilai_pengetahuan,1);
+                     }
+                     else
+                     {
+                        $pdf->MultiCell(75, ($line * $cellHeight), $row->desc_nilai_pengetahuan, 1);
+                     }
+
+                    $pdf->SetXY($xPos + $cellWidth , $yPos);
+                    $pdf->ln();
+       		}
+       		$sql="SELECT `nilai`.`kd_jadwal`,`nilai`.`nilai_spritual`,`nilai`.`nilai_sosial`,`nilai`.`nilai_pengetahuan`,
+			  `nilai`.`desc_nilai_pengetahuan`,`nilai`.`nilai_keterampilan`,`nilai`.`desc_nilai_keterampilan`,`jadwal`.`kd_pelajaran`,
+			  `jadwal`.`id_guru`,`jadwal`.`kd_ta`,`pelajaran`.`nm_pelajaran`,`pelajaran`.`kategori`,`pelajaran`.`subkategori`,`nilai`.`nis`,kelompok
+				FROM `nilai` INNER JOIN `jadwal` ON `nilai`.`kd_jadwal` = `jadwal`.`kd_jadwal` INNER JOIN `pelajaran` ON `jadwal`.`kd_pelajaran` = `pelajaran`.`kd_pelajaran` WHERE `nilai`.`nis`='".$nis."'  and kd_ta='".$kd_ta."' and pelajaran.kelompok='C'";
+	 		$A=$this->db->query($sql)->result();
+       		$pdf->Cell(190, 6, 'Kelompok C (Peminatan)', 1, 0, 'L');
+       		$pdf->ln(6);
+       		$no=1;
+       		foreach ($A as $row) {
+       			if($row->nilai_pengetahuan>=90)
+        		{
+            		$predikat="A";
+            	}
+        		 $lenpelajaran=strlen($row->nm_pelajaran);
+                $lendesc=strlen($row->desc_nilai_pengetahuan);
+                $cellHeight=5;
+                if($lenpelajaran>$lendesc)
+                {
+                    $x=$row->nm_pelajaran;
+                    $cellWidth=80;
+                }else
+                {
+                    $cellWidth=75;
+                    $x=$row->desc_nilai_pengetahuan;
+                }
+                if($pdf->GetStringWidth($x) < $cellWidth){
+                    $line=1;
+                }else{
+                    $textLength=strlen($x);
+                    $errMargin=10;
+                    $startChar=0;
+                    $maxChar=0;
+                    $textArray=array(); 
+                    $tmpString='';
+                    while($startChar < $textLength)
+                    { 
+                    while( $pdf->GetStringWidth( $tmpString ) < ($cellWidth-$errMargin) && ($startChar+$maxChar) < $textLength) 
+                        {
+                            $maxChar++;
+                            $tmpString=substr($x,$startChar,$maxChar);
+                        }
+                        $startChar=$startChar+$maxChar;
+                        array_push($textArray,$tmpString);
+                        $maxChar=0;
+                        $tmpString='';
+                    }
+                    $line=count($textArray);
+                    }
+                    
+                    $pdf->Cell(10,($line* $cellHeight),$no++,1,0,'C'); //adapt height to number of lines
+                     $xPos=$pdf->GetX();
+                     $yPos=$pdf->GetY();
+                     if($line>1)
+                     {
+
+                     $pdf->MultiCell(80,($cellHeight),$row->nm_pelajaran,1);
+                     }
+                     else
+                     {
+                        $pdf->MultiCell(80,($line*$cellHeight),$row->nm_pelajaran,1);
+                     }
+                     $pdf->SetXY($xPos + $cellWidth , $yPos);
+                    $pdf->Cell(10,($line * $cellHeight),  $row->nilai_pengetahuan, 1, 0, 'C');
+                    $pdf->Cell(15,($line * $cellHeight), $predikat, 1, 0, 'C');
+                    $pdf->MultiCell(75, ($line * $cellHeight), $row->desc_nilai_pengetahuan, 1);
+                    $pdf->SetXY($xPos + $cellWidth , $yPos);
+                    $pdf->ln();
+       	
+       		}
