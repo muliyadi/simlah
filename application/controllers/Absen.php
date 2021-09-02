@@ -75,7 +75,7 @@ class Absen extends CI_Controller
 	    		     
 	      
 
-	    redirect('absen');
+	    redirect('absen','refresh');
 	    
 	}
 	
